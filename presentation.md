@@ -9,9 +9,9 @@ class: middle
 
 # Agenda
 - Introduction
-- Proc
-- Lambda
-- Cloasure
+- Procs
+- Lambdas
+- Closures
 - Summary
 - Example
 
@@ -47,6 +47,8 @@ end
 - .strong[block] - nameless function in Ruby
 - only one per method
 - as last argument
+- .strong[p] - return text from ""
+- .strong[puts] - return nil
 
 ---
 
@@ -77,7 +79,7 @@ LocalJumpError: no block given (yield)
   from /home/agnieszka/.rvm/rubies/ruby-2.1.3/bin/irb:11:in `<main>'
 ```
 
-# Simple fix
+## Simple fix
 
 
 ```ruby
@@ -89,9 +91,9 @@ end
 ```
 
 ```ruby
-my_own_block
 "before"
 "after"
+ => "after"
 ```
 
 ---
@@ -108,7 +110,7 @@ ArgumentError: wrong number of arguments (1 for 0)
   from /home/agnieszka/.rvm/rubies/ruby-2.1.3/bin/irb:11:in `<main>'
 ```
 
-# Simple fix
+## Simple fix
 
 ```ruby
 my_own_block { 5 }
@@ -148,7 +150,7 @@ class: center, middle, inverse
 
 class: middle
 
-# block class
+# Block class
 
 ```ruby
 def my_block(&block)
@@ -159,7 +161,7 @@ def my_block(&block)
 end
 ```
 
-# Execute
+## Execute
 
 ```ruby
 my_block { p 4 }
@@ -174,7 +176,7 @@ Proc
 
 class: middle
 
-# Many Proc in one function
+# Many Procs in one function
 
 ```ruby
 def run_proc(first, last)
@@ -186,7 +188,7 @@ proc1 = Proc.new { p 'first' }
 proc2 = Proc.new { p 'last' }
 ```
 
-# Execute
+## Execute
 
 ```ruby
 run_proc proc1, proc2
@@ -210,7 +212,7 @@ def run_proc
 end
 ```
 
-# Execute
+## Execute
 
 ```ruby
 run_proc { p 6 }
@@ -223,7 +225,7 @@ run_proc { p 6 }
 ???
 
 - How its work?
-- If Proc.new don't have a block of code
+- If .strong[Proc.new] don't have a block of code
 - it look for Proc in current context and use it
 - its implisyty work
 
@@ -245,7 +247,7 @@ my_proc = Proc.new do |item|
 end
 ```
 
-# Execute
+## Execute
 
 ```ruby
 my_proc.call 10
@@ -256,7 +258,7 @@ my_proc === 40
 
 ???
 
-- if we call Proc like this my_proc.(20) we must use ()
+- if we call Proc like this .strong[my_proc.(20)] we must use ()
 
 ---
 
@@ -278,7 +280,7 @@ else
 end
 ```
 
-# Realy tricky
+## Realy tricky
 
 ```ruby
 (4..7) === 5 => true
@@ -297,13 +299,13 @@ class: center, middle, inverse
 ???
 
 - almost like Proc, but have some different behaviors
-- in Ruby 1.8 proc is lambda but in 1.9 proc is Proc object
+- in Ruby 1.8 .strong[proc] is lambda but in 1.9 proc is Proc object
 
 ---
 
 class: middle
 
-## 1. Arrity controll
+## 1. Arguments controll
 
 ```ruby
 my_proc = Proc.new { |item|  p "==#{item}==" }
@@ -340,12 +342,35 @@ ArgumentError: wrong number of arguments (0 for 1)
 
 class: middle
 
-# Array of arity
+### Array of arguments
 
 ```ruby
 lambda { |*items| }.arity
  => -1
 ```
+
+### New lambda declaration
+
+```ruby
+my_lambda = -> { p 'Is it still work?' }
+my_lambda.call
+"Is it still work?"
+ => "Is it still work?"
+```
+
+### But ...
+
+```ruby
+my_lambda.class
+ => Proc
+
+my_lambda.lambda?
+ => true
+```
+
+???
+
+- .strong[lambda] class is always .strong[Proc]
 
 ---
 
@@ -360,7 +385,7 @@ def run(proc)
   p 'after'
 end
 ```
-#### Execite lambda
+#### Execute lambda
 
 ```ruby
 run lambda { p 'In'; return }
@@ -464,7 +489,7 @@ second
 
 class: middle
 
-### 3. Proc after return finish all methods first and second
+### 3. Proc after return, finish all methods (first and second)
 
 ```ruby
 def first(closure)
@@ -501,6 +526,8 @@ class: center, middle, inverse
 
 ---
 
+class: middle
+
 # Magic start
 
 ```ruby
@@ -525,7 +552,7 @@ run my_proc
 
 ---
 
-## What happend when variable is not create before?
+## What happend when variable is not created before?
 
 ```ruby
 my_proc = proc { p last_name }
@@ -559,7 +586,7 @@ NameError: undefined local variable or method `last_name' for main:Object
 
 class: middle
 
-# What going on here?
+# What's going on here?
 
 ```ruby
 name = 'Agnieszka'
@@ -642,7 +669,7 @@ class: middle
 
 class: middle
 
-## How we call yield_run or block_run?
+# How we call yield_run or block_run?
 
 ```ruby
 def yield_run
@@ -655,6 +682,10 @@ def block_run(&block)
   block.call
 end
 ```
+
+???
+
+- .strong[yield] is not Proc type, it is something like .strong[block.call]
 
 ---
 
@@ -784,7 +815,7 @@ my_proc.call
 - we can run yield with argument
 - we can use proc in Design Paterns (ex. Strategy)
 - .strong[.lambda?] - check if something is lambda or not
-- Java have also clousure as anonymous inner classes
+- Java have also closure as anonymous inner classes
 
 ---
 
@@ -955,9 +986,9 @@ class: middle, inverse
 # Bibliography
 
 - [Closure in Ruby](http://innig.net/software/ruby/closures-in-ruby)
-- [An Introduction to Proc, Lambdas and Closures in Ruby](#)
-- [Design Patterns in Ruby - Russ Olsen](#)
-- [Ruby doc](#)
+- [An Introduction to Proc, Lambdas and Closures in Ruby](https://www.youtube.com/watch?v=VBC-G6hahWA)
+- [Design Patterns in Ruby - Russ Olsen](http://www.amazon.com/Design-Patterns-Ruby-Russ-Olsen/dp/0321490452)
+- [Ruby doc](http://ruby-doc.org/)
 
 ---
 
