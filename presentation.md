@@ -3,6 +3,17 @@ class: center, middle, inverse
 # Functional Programming in Ruby
 Agnieszka Matysek
 
+???
+
+- .strong[immutable values]
+- .strong[no side-effects]
+  - function always return the same result
+  - function can never take a value and change it
+- .strong[higher-order functions]
+- .strong[currying] - transforming a function that takes multiple arguments into a function that takes one argument
+- .strong[recursion]
+- .strong[lazy-evaluation]
+
 ---
 
 class: middle
@@ -669,6 +680,33 @@ class: middle
 
 class: middle
 
+# Where we use this?
+
+```ruby
+[1, 2, 3].each { |item| p item }
+
+[1, 2, 3].each_cons(2).map { |x, y| x + y }
+```
+
+```ruby
+[1, 2, 3].map { |item| item.next }
+```
+
+```ruby
+[1, 2, 3].inject(0, :+)
+```
+
+```ruby
+respond_to do |format|
+  format.html # index.html.erb
+  format.xml  { render :xml => @items }
+end
+```
+
+---
+
+class: middle
+
 # How we call yield_run or block_run?
 
 ```ruby
@@ -989,7 +1027,8 @@ class: middle, inverse
 - [An Introduction to Proc, Lambdas and Closures in Ruby](https://www.youtube.com/watch?v=VBC-G6hahWA)
 - [Design Patterns in Ruby - Russ Olsen](http://www.amazon.com/Design-Patterns-Ruby-Russ-Olsen/dp/0321490452)
 - [Ruby doc](http://ruby-doc.org/)
-
+- [Functional Programming with Ruby](http://www.slideshare.net/tokland/functional-programming-with-ruby-9975242)
+- [Features of Functional Languages](http://www.sitepoint.com/functional-programming-techniques-with-ruby-part-i/)
 ---
 
 class: middle, center
