@@ -39,19 +39,30 @@ a {
   width: 400px;
 }
 
+.thumb-image img {
+  width: 200px;
+}
+
+.position-absolute img {
+  position: absolute;
+  top: 0px;
+  right: 10%;
+}
+
 .italic {
   font-style: italic;
 }
 
 .left-column {
-  width: 30%;
+  width: 60%;
   height: 92%;
   float: left;
   padding-top: 15%;
 }
 
 .right-column {
-  width: 65%;
+  width: 35%;
   float: right;
-  padding-top: 13%;
+  padding-top: 20%;
 }
+

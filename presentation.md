@@ -3,6 +3,23 @@ class: center, middle, inverse
 # Functional Programming in Ruby
 Agnieszka Matysek
 
+---
+
+class: middle
+
+.left-column[
+# Agenda
+- Introduction
+- Procs
+- Lambdas
+- Closures
+- Summary
+- Example
+]
+.right-column[
+.thumb-image[![Agenda](./images/agenda.jpg)]
+]
+
 ???
 
 - .strong[immutable values]
@@ -16,22 +33,11 @@ Agnieszka Matysek
 
 ---
 
-class: middle
-
-# Agenda
-- Introduction
-- Procs
-- Lambdas
-- Closures
-- Summary
-- Example
-
-
----
-
 class: center, middle, inverse
 
 # Simple block
+
+.small-image[![Block](./images/block.jpg)]
 
 ---
 
@@ -65,7 +71,7 @@ end
 
 class: middle
 
-# Define our block
+# Define block
 
 ```ruby
 def my_own_block
@@ -111,7 +117,7 @@ end
 
 class: middle
 
-# How put something to the block?
+## How to put something to the block?
 
 ```ruby
 my_own_block(5)
@@ -121,7 +127,7 @@ ArgumentError: wrong number of arguments (1 for 0)
   from /home/agnieszka/.rvm/rubies/ruby-2.1.3/bin/irb:11:in `<main>'
 ```
 
-## Simple fix
+### Simple fix
 
 ```ruby
 my_own_block { 5 }
@@ -152,6 +158,8 @@ my_own_block { p 5 }
 class: center, middle, inverse
 
 # Proc object
+
+.small-image[![Proc](./images/proc.jpg)]
 
 ???
 
@@ -291,7 +299,7 @@ else
 end
 ```
 
-## Realy tricky
+## Really tricky
 
 ```ruby
 (4..7) === 5 => true
@@ -316,7 +324,7 @@ class: center, middle, inverse
 
 class: middle
 
-## 1. Arguments controll
+## 1. Arguments control
 
 ```ruby
 my_proc = Proc.new { |item|  p "==#{item}==" }
@@ -363,10 +371,10 @@ lambda { |*items| }.arity
 ### New lambda declaration
 
 ```ruby
-my_lambda = -> { p 'Is it still work?' }
+my_lambda = -> { p 'Is it still working?' }
 my_lambda.call
-"Is it still work?"
- => "Is it still work?"
+"Is it still working?"
+ => "Is it still working?"
 ```
 
 ### But ...
@@ -467,7 +475,7 @@ end
 
 class: middle
 
-### 3. Lambda can return value even the creation context is gone
+### 3. Lambda can return value even if the creation context is gone
 
 ```ruby
 def first(closure)
@@ -500,7 +508,7 @@ second
 
 class: middle
 
-### 3. Proc after return, finish all methods (first and second)
+### 3. Proc after return, finishes all methods (first and second)
 
 ```ruby
 def first(closure)
@@ -539,7 +547,9 @@ class: center, middle, inverse
 
 class: middle
 
-# Magic start
+.thumb-image.position-absolute[![Magic](./images/magic.jpg)]
+
+# Magic starts
 
 ```ruby
 def run(proc)
@@ -556,6 +566,7 @@ run my_proc
  => "Agnieszka"
 ```
 
+
 ???
 
 - Before proc context we declare .strong[name]
@@ -563,7 +574,7 @@ run my_proc
 
 ---
 
-## What happend when variable is not created before?
+## What happends when variable is not created before?
 
 ```ruby
 my_proc = proc { p last_name }
@@ -611,6 +622,8 @@ run my_proc
 
 class: middle
 
+.thumb-image.position-absolute[![Magic](./images/magic.jpg)]
+
 # Magic
 
 ```ruby
@@ -631,7 +644,7 @@ run my_proc
 class: middle
 
 # Where can we use this?
-#### Defining function which create other function
+#### Defining function which creates other functions
 
 ```ruby
 def multiple(m)
@@ -680,7 +693,7 @@ class: middle
 
 class: middle
 
-# Where we use this?
+# Where do we use this?
 
 ```ruby
 [1, 2, 3].each { |item| p item }
@@ -693,6 +706,7 @@ class: middle
 ```
 
 ```ruby
+[1, 2, 3].inject(0) { |sum, item| sum + item }
 [1, 2, 3].inject(0, :+)
 ```
 
@@ -707,7 +721,7 @@ end
 
 class: middle
 
-# How we call yield_run or block_run?
+# How do we call yield_run or block_run?
 
 ```ruby
 def yield_run
@@ -750,7 +764,7 @@ block_run { my_proc.call }
 
 class: middle
 
-# What we get?
+# What do we get?
 
 ```ruby
 name = 'Agnieszka'
@@ -791,7 +805,7 @@ name => "Maria"
 
 class: middle
 
-# What we get?
+# What do we get?
 
 ```ruby
 def run
@@ -952,14 +966,14 @@ LazyLispyEnumerable.new(list).each { |item| p item }
 
 class: middle
 
-## How we can see this?
+## How can we see this?
 
 ```ruby
 list = lambda do
-  p '1 is call'
+  p '1 is called'
   [1, lambda do
-    p '2 is call'
-    [2, lambda { p '3 is call'; [3] }]
+    p '2 is called'
+    [2, lambda { p '3 is called'; [3] }]
   end]
 end
 ```
@@ -968,11 +982,11 @@ end
 
 ```ruby
 LazyLispyEnumerable.new(list).each { |item| p item }
-"1 is call"
+"1 is called"
 1
-"2 is call"
+"2 is called"
 2
-"3 is call"
+"3 is called"
 3
  => nil
 ```
@@ -984,7 +998,7 @@ class: middle
 # Fibbonacci:
 
 ```ruby
-def fibo(a,b)
+def fibo(a, b)
   lambda { [a, fibo(b, a + b)] }
 end
 ```
@@ -992,7 +1006,7 @@ end
 #### Execute
 
 ```ruby
-LazyLispyEnumerable.new(fibo(1,1)).each do |item|
+LazyLispyEnumerable.new(fibo(1, 1)).each do |item|
   puts item
   break if item > 100
 end
